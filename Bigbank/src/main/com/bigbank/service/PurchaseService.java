@@ -41,8 +41,7 @@ public class PurchaseService {
 					ProbabilityType.BLACK);
 			LOG.info("Purchasing next required item for game id [" + gameId + "] and " + message);
 			purchaseItem(gameId, ResultHolder.getInstance().getGold(),
-					CommonUtility.findBestItemToPurchase(message.isEmpty() ? null : message.get()
-							, ResultHolder.getInstance().getGold()));
+					CommonUtility.findBestItemToPurchase(ResultHolder.getInstance().getGold()));
 		}
 	}
 
