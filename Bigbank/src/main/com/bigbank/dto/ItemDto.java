@@ -29,4 +29,13 @@ public class ItemDto {
 	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
+
+	@Override
+	public String toString() {
+		return "[" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				", cost=" + cost +
+				']';
+	}
 }

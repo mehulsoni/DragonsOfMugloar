@@ -5,7 +5,8 @@ import org.apache.log4j.Logger;
 import java.util.Optional;
 
 import main.com.bigbank.dto.GameDto;
-import main.com.bigbank.helper.ConnectionHelper;
+import main.com.bigbank.service.ConnectionService;
+import main.com.bigbank.service.PlayService;
 import main.com.bigbank.utility.Constant;
 
 public class Game {
@@ -14,6 +15,7 @@ public class Game {
 	private static Game INSTANCE;
 
 	private Game() {
+		super();
 	}
 
 	public static Game getInstance() {
@@ -23,21 +25,21 @@ public class Game {
 		return INSTANCE;
 	}
 
-	public static void main(String[] args) throws RuntimeException, InterruptedException {
+	public static void main(String[] args) {
 		Optional<GameDto> gameOptional = Game.getInstance().startGame();
-		if (gameOptional.isPresent()) {
+		if (gameOptional.isEmpty()) {
 			throw new RuntimeException("There is some problem in starting game, please try later");
 		}
 		LOG.info(gameOptional.get().getGameId());
-		Play.getInstance().start(gameOptional.get());
+		PlayService.getInstance().start(gameOptional.get());
 	}
 
 	private Optional<GameDto> startGame() {
-		Optional<String> response = ConnectionHelper.getInstance().sendPost(Constant.START_GAME_URL);
-		if (!response.isPresent()) {
+		Optional<String> response = ConnectionService.getInstance().sendPost(Constant.START_GAME_URL);
+		if (response.isEmpty()) {
 			return Optional.empty();
 		}
-		return Optional.ofNullable(ConnectionHelper.getInstance().gson.fromJson(response.get(), GameDto.class));
+		return Optional.ofNullable(ConnectionService.getInstance().gson.fromJson(response.get(), GameDto.class));
 	}
 
 }

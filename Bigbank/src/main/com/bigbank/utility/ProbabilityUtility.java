@@ -46,7 +46,7 @@ public class ProbabilityUtility {
 	public static int probabilityRanking(String type) {
 		switch (type) {
 			case Constant.RATHER_DETRIMENTAL:
-				return (ProbabilityType.RED. getLevel());
+				return (ProbabilityType.RED.getLevel());
 			case Constant.SUICIDE_MISSION:
 			case Constant.PLAYING_WITH_FIRE:
 				return (ProbabilityType.BLACK.getLevel());

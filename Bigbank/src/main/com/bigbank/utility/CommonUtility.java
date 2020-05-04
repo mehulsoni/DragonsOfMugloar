@@ -1,132 +1,50 @@
 package main.com.bigbank.utility;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.log4j.Logger;
 
 import main.com.bigbank.dto.MessageDto;
-import main.com.bigbank.enums.ProbabilityType;
+import main.com.bigbank.helper.ResultHolder;
+import main.com.bigbank.service.MessageService;
 
 public class CommonUtility {
 
-	private static final Map<String, Integer> CART = new HashMap<>();
+	private static Logger LOG = Logger.getLogger(CommonUtility.class);
 
 	public static boolean isTrapMessage(MessageDto message) {
-		return applyPattern(message.getMessage(), "super awesome diamond");
+		LOG.debug("Checking trap message" + message);
+		return match(message.getMessage(), Constant.SUPER_AWESOME_DIAMOND);
 	}
 
-	private static boolean applyPattern(String message, String pattern) {
+	private static boolean match(String message, String pattern) {
 		return message.contains(pattern);
 	}
 
 	public static int applyRating(MessageDto message) {
-		if (applyPattern(message.getMessage(), "and share some of the profit")) {
+		if (match(message.getMessage(), Constant.SHARE_SOME_OF_THE_PROFIT)) {
 			return 3;
 		}
-		if (applyPattern(message.getMessage(), "advertisement")) {
+		if (match(message.getMessage(), Constant.ADVERTISEMENT)) {
 			return 2;
 		}
-		if (applyPattern(message.getMessage(), "deranged")) {
+
+		if (match(message.getMessage(), Constant.DERANGED)) {
 			return 2;
 		}
-		if (applyPattern(message.getMessage(), "magic")) {
+
+		if (match(message.getMessage(), Constant.MAGIC)) {
 			return 2;
 		}
 		return 1;
 	}
 
 	public static String findBestItemToPurchase(MessageDto message, int gold) {
-//		String key = extractMessageKey(message.getMessage());
-//
-//		System.out.println("Found key :" + key);
-//		if (List.of("keep").contains(key)) {
-//			return checkIntoCart("cs", 1);
-////			"name": "Claw Sharpening"
-//		}
-//		if (List.of("transport").contains(key)) {
-//			return checkIntoCart("gas", 1);
-////			"name": "Gasoline",
-//		}
-//		if (List.of("attacked", "palace", "church", "tower").contains(key)) {
-//			return checkIntoCart("wax", 1);
-////			"name": "Copper Plating",
-//		}
-//		if (List.of("mystery").contains(key)) {
-//			return checkIntoCart("tricks", 1);
-////			"name": "Book of Tricks",
-//		}
-//		if (List.of("bog", "village", "plains", "meadow").contains(key)) {
-//			return checkIntoCart("wingpot", 1);
-//			//"name": "Potion of Stronger Wings",
-//		}
-//
-//		if (List.of("savannah").contains(key)) {
-//			return checkIntoCart("ch", 2);
-////			"name": "Claw Honing",
-//		}
-//		if (List.of("transport").contains(key)) {
-//			return checkIntoCart("rf", 2);
-////			"name": "Rocket Fuel",
-//		}
-//		if (List.of("dungeon", "fort", "stronghold", "castle").contains(key)) {
-//			return checkIntoCart("iron", 2);
-//			//			"name": "Iron Plating",
-//		}
-//		if (List.of("investigate").contains(key)) {
-//			return checkIntoCart("mtrix", 2);
-//
-//			//			"name": "Book of Megatricks",
-//		}
-//		if (List.of("swamp", "peninsula", "grassland", "mountains", "manor").contains(key)) {
-//			return checkIntoCart("wingpotmax", 1);
-////			"name":"Potion of Awesome Wings",
-//		}
-//		return checkIntoCart("cs", 1);
-
+		LOG.info("We can get best item based on message type and message contains");
+		LOG.info("Next available " + message);
 		if (gold >= 100) {
-			return message != null && message.getProbabilityRank() == ProbabilityType.BLACK.getLevel() ? "wingpotmax" : "ch";
+			return Constant.WING_POT_MAX;
 		} else {
-			return message != null && message.getProbabilityRank() == ProbabilityType.BLACK.getLevel() ? "wingpot" : "cs";
+			return Constant.WING_POT;
 		}
 	}
-
-//	private static String checkIntoCart(String code, Integer defaultValue) {
-//		Integer count = CART.get(code);
-//		if (count != null && count > 0) {
-//			CART.put(code, --count);
-//			return "no";
-//		}
-//		CART.put(code, defaultValue);
-//		return code;
-//	}
-//
-//
-//	private static String extractMessageKey(String message) {
-//
-//		if (message.toLowerCase().contains("transport")) {
-//			return "transport";
-//		}
-//
-//		if (message.toLowerCase().contains("investigate") || message.toLowerCase().contains("magic")) {
-//			return "investigate";
-//		}
-//
-//		if (message.toLowerCase().contains("attacked")) {
-//			return "attacked";
-//		}
-//
-//		final Pattern p = Pattern.compile("Help defending (\\w++) in (\\w++) from the intruders");
-//		final Matcher m = p.matcher(message);
-//		if (m.matches()) {
-//			return m.group(1);
-//		}
-//
-//		final Pattern p2 = Pattern.compile("Help defending (\\w++) (\\w++) in (\\w++) from the intruders");
-//		final Matcher m2 = p.matcher(message);
-//		if (m2.matches()) {
-//			return m2.group(1);
-//		}
-//
-//		return "skip";
-//	}
 
 }
