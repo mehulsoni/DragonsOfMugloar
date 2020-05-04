@@ -28,19 +28,18 @@ public class PurchaseService {
 	}
 
 	public void purchaseItem(String gameId) {
-//		LOG.info("Purchasing Item for game id [" + gameId + "]");
+		LOG.info("Purchasing Item for game id [" + gameId + "]");
 		if (isHealingPortionBudgetAvailable()) {
-//			LOG.info("Purchasing healing portion for game id [" + gameId + "]");
+			LOG.info("Purchasing healing portion for game id [" + gameId + "]");
 			purchaseItem(gameId, ResultHolder.getInstance().getGold(), Constant.HEALING_PORTION_CODE);
 		}
 		if (isNextItemInBudgetAvailable()) {
-//			LOG.info("Purchasing next required item for game id [" + gameId + "]");
+			LOG.info("Purchasing next required item for game id [" + gameId + "]");
 			Optional<MessageDto> message = checkNextAvailableMessage(MessageService.getInstance().messages(),
 					ProbabilityType.YELLOW,
 					ProbabilityType.RED,
 					ProbabilityType.BLACK);
-//			LOG.info("Purchasing next required item for game id [" + gameId + "] and " + message);
-
+			LOG.info("Purchasing next required item for game id [" + gameId + "] and " + message);
 			purchaseItem(gameId, ResultHolder.getInstance().getGold(),
 					CommonUtility.findBestItemToPurchase(message.isEmpty() ? null : message.get()
 							, ResultHolder.getInstance().getGold()));
