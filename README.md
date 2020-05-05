@@ -1,4 +1,4 @@
-# DragonsOfMugloar
+# Dragons Of Mugloar
 
 ## Task Description link 
 https://www.dragonsofmugloar.com/
