@@ -21,7 +21,7 @@ Your solution is considered acceptable when the application is reliably able to 
 
 ## Installation and build program
 
-Use the intelijj or Eclipse. Please add java library into path.
+Please add java (plain java) library into path use the intelijj or Eclipse.
 
 ``` Required Java 
 $ javac -cp "../libs/common.jar" Game.java 
@@ -46,5 +46,5 @@ messages
 
 ## LIMITATIONS
 
-Currently I am using Java 11 on my developing machine and due to which I am facing issue while mock http response using power mokito. So I have written Plain Java test case (mock)
+Currently, I am using Java 11 on my developing machine and due to which I am facing issue while mock http response using power mokito. Also tried to use spring-boot no web application to complete task and mock it but that is also throwing same error. So, I written Plain Java test case
 
